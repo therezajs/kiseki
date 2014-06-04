@@ -1,4 +1,7 @@
 Kiseki::Application.routes.draw do
+  get "session/new"
+  get "session/create"
+  get "session/delete"
   resources :messages
 
   resources :photos
@@ -12,6 +15,8 @@ Kiseki::Application.routes.draw do
   resources :replies
 
   resources :friends
+
+  delete "/signout", :to => 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

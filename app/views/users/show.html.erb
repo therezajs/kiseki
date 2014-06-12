@@ -1,4 +1,31 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="col-md-2">
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+    <%= render 'layouts/sidebar' %>
+
+  </div>
+  <div class="col-md-6">
+    <h3>
+      <strong><%= @user.username %></strong>
+    </h3>
+    <p>
+      <strong>Name:</strong>
+      <%= @user.first_name + " " + @user.last_name %>
+    </p>
+
+    <p>
+      <strong>Email:</strong>
+      <%= @user.email %>
+    </p>
+  </div>
+  <div class="col-md-4">
+    <% if current_user == @user  %>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Sign out', signout_path, method: :delete, data: { confirm: 'Are you sure?' }%>
+    <% else %>
+    <%= link_to 'Add as friend', new_friend_path %> |
+    <%= link_to 'Send message', new_message_path(@user) %>
+    <% end -%>
+  </div>
+</div>

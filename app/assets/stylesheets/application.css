@@ -9,5 +9,25 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap
  *= require_tree .
  */
+
+ html {
+ 	margin-top: 60px;
+ }
+ body {
+ 	background-color: #E6E6E6 !important;
+ }
+ header {
+ 	background-color: #7ACCA3;
+ 	border-bottom: 1px solid #00A37A !important;
+ }
+ header a:hover {
+ 	background-color: #00A37A !important;
+ }
+ footer a:hover {
+ 	background-color: transparent !important;
+ 	color: black;
+ }
+

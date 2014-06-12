@@ -1,0 +1,21 @@
+<header class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="navbar-brand">
+      <%= link_to 'Kiseki', root_path %>
+      </div>
+      <nav class="navbar-collapse collapse">
+        <ul class="nav navbar-nav pull-right">
+          <% if signed_in? %>
+            <li><%= link_to "Hello " + current_user.username, user_path(id: current_user.id ) %></li>
+            <li><%= link_to 'Setting', '#' %></li>
+            <li><%= link_to 'About', '#' %></li>
+          <% else %>
+            <li><%= link_to 'Sign in', signin_path %></li>
+            <li><%= link_to 'or register', register_path %></li>
+          <% end -%>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

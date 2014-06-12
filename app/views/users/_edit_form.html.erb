@@ -1,4 +1,4 @@
-<%= simple_form_for @user, html: {:class => 'form-horizontal' }, method: :post do |f| %>
+<%= simple_form_for @user, html: {:class => 'form-horizontal' }, method: :patch do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -16,7 +16,16 @@
   <%= f.input :last_name, label: false, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group'}, :placeholder => "Last Name" %>
   <%= f.input :username, label: false, input_html: { class: 'form-control'}, wrapper_html: { class: 'form-group'}, :placeholder => "Username" %>
   <%= f.input :email, label: false, input_html: { class: 'form-control'}, wrapper_html: { class: 'form-group'}, :placeholder => "Email" %>
-  <%= f.input :password, label: false, input_html: { class: 'form-control'}, wrapper_html: { class: 'form-group'}, :placeholder => "Password" %>
-  <%= f.input :password_confirmation, label: false, input_html: { class: 'form-control'}, wrapper_html: { class: 'form-group'}, :placeholder => "Password Confirmation" %>
-  <%= f.submit 'Register', class: 'btn btn-success pull-right' %>
+  <%= f.submit 'Update', class: 'btn btn-success pull-right' %>
 <% end %>
+<br>
+<br>
+<br>
+<br>
+<%= simple_form_for @user, html: {:class => 'form-horizontal' }, method: :patch do |f| %>
+<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+<%= f.input :old_password, label: false, input_html: { class: 'form-control'}, wrapper_html: { class: 'form-group'}, :placeholder => "Current Password" %>
+<%= f.input :password, label: false, input_html: { class: 'form-control'}, wrapper_html: { class: 'form-group'}, :placeholder => "New Password" %>
+  <%= f.input :password_confirmation, label: false, input_html: { class: 'form-control'}, wrapper_html: { class: 'form-group'}, :placeholder => "New Password Confirmation" %>
+  <%= f.submit 'Update', class: 'btn btn-success pull-right' %>
+<% end -%>

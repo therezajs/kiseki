@@ -1,30 +1,23 @@
 Kiseki::Application.routes.draw do
-  get "sessions/new"
-  get "sessions/create"
-  get "sessions/delete"
-
   resources :messages
-
   resources :photos
-
   resources :posts
-
   resources :users
-
   resources :comments
-
   resources :replies
-
   resources :friends
+  resources :sessions, :only => [:new, :create, :destroy]
 
-  # resources :sessions
+  get "/home", :to => 'posts#index'
+  get "/register", :to => 'users#new'
+  get "/signin", :to => 'sessions#new'
   delete "/signout", :to => 'sessions#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'index#posts'
+  root 'posts#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

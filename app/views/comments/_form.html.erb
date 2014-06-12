@@ -1,0 +1,23 @@
+<%= simple_form_for @comment, html: {:class => 'form-horizontal' }, method: :post do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="input-group">
+    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+    <%= f.hidden_field :user_id, value: @current_user.id %>
+    <%= f.hidden_field :post_id, value: @post_id %>
+
+    <%= f.input :comment, label: false, input_html: { class: 'form-control' }, :placeholder => "Add a comment ..." %>
+    <span class="input-group-btn">
+    <%= f.submit 'Go', class: 'btn btn-success' %>
+    </span>
+  </div>
+<% end %>

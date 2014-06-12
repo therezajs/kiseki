@@ -1,7 +1,7 @@
-<%= form_for(@message) do |f| %>
+<%= simple_form_for @message, html: {:class => 'form-horizontal' }, method: :post do |f| %>
   <% if @message.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+      <h2><%= pluralize(@message.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
       <% @message.errors.full_messages.each do |msg| %>
@@ -11,7 +11,10 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+  <%= f.hidden_field :writer_id, value: current_user.id %>
+  <%= f.hidden_field :user_id, value: @find_user.id %>
+  <%= f.input :subject, label: false, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' }, :placeholder => "Topic" %>
+  <%= f.input :message, label: false, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' }, :placeholder => "What say you to" + @find_user.username + "?" %>
+  <%= f.submit 'Say it', class: 'btn btn-success' %>
 <% end %>

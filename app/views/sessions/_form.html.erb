@@ -1,0 +1,6 @@
+<%= simple_form_for :session, :url => sessions_path, method: :post do |f| %>
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+  <%= f.input :username, label: false, placeholder: 'Username', input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+  <%= f.input :password, label: false, placeholder: 'Password', input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' } %>
+  <%= f.submit 'Login', class: 'btn btn-success actions' %>
+<% end %>

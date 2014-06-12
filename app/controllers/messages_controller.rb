@@ -1,10 +1,12 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-
+  include UsersHelper
+  include RepliesHelper
+  include SessionsHelper
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    @messages = Message.where('writer_id = ? or user_id = ?', current_user.id, current_user.id)
   end
 
   # GET /messages/1
@@ -69,6 +71,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params[:message]
+      params.require(:message).permit(:subject, :message, :user_id, :writer_id )
     end
 end

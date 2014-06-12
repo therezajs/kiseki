@@ -1,25 +1,61 @@
-<h1>Listing posts</h1>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+    <h1>News Feed</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <%= render 'layouts/sidebar' %>
 
-  <tbody>
+  </div>
+  <div class="col-md-8">
+    <% if signed_in? %>
+
+      <%= render 'form' %>
+
+    <% end -%>
     <% @posts.each do |post| %>
-      <tr>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="row post_row">
+        <div class="col-md-4">
+          <%= link_to post.user.username, user_path(id: post.user_id) %><br>
+          <small><%= post.updated_at.strftime("%d %b. %Y") %></small>
+        </div>
+        <div class="col-md-6">
+          <%= link_to post.posts, post_path(id: post.id) %>
+        </div>
+        <div class="col-md-2">
+          <% if signed_in? && current_user.id == post.user_id %>
+            <%= link_to 'Edit', edit_post_path(post) %>
+            <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end -%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+          <% if signed_in? %>
+
+            <% new_comment %>
+            <% @post_id = post.id %>
+            <%= render 'comments/form' %>
+
+          <% end -%>
+          <% display_last_five(post.id)%>
+          <% @display_last_five.each do |comment| %>
+            <div class="row post_row">
+              <div class="col-md-2">
+                <%= link_to comment.user.username, user_path(id: comment.user.id) %><br>
+              </div>
+              <div class="col-md-10">
+                <%= comment.comment %><br>
+                <small><%= comment.updated_at.strftime("%d %b. %Y") %></small>
+              </div>
+            </div>
+          <% end -%>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Post', new_post_path %>
+  </div>
+</div>

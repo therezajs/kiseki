@@ -1,0 +1,19 @@
+<%= simple_form_for @reply, html: {:class => 'form-horizontal' }, method: :post do |f| %>
+  <% if @reply.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reply.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @reply.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :message_id, value: @message.id %>
+  <%= f.input :reply, label: false, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-group' }, :placeholder => "What say you to?" %>
+  <%= f.submit 'Say it', class: 'btn btn-success' %>
+<% end %>

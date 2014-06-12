@@ -1,5 +1,21 @@
-<h1>New message</h1>
+<% find_user(params["format"])%>
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-10">
+    <h1>New Message to <%= @find_user.username %></h1>
+    <p><%= link_to "Return to "+@find_user.username+"'s profile", user_path(id: @find_user.id) %></p>
+  </div>
+</div>
+<div class="row">
+	<div class="col-md-2">
 
-<%= render 'form' %>
+		<%= render 'layouts/sidebar' %>
 
-<%= link_to 'Back', messages_path %>
+	</div>
+	<div class="col-md-6">
+
+    <%= render 'form' %>
+
+	</div>
+</div>

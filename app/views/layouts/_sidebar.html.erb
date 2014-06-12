@@ -1,0 +1,7 @@
+<%= link_to "News", root_path %><br>
+<%= link_to "Messages", messages_path %><br>
+<%= link_to "Friends", friends_path %><br>
+<% if signed_in? %>
+<%= link_to "Profile", user_path(id: current_user.id) %><br>
+<% end -%>
+<%= link_to "About", "#" %><br>
